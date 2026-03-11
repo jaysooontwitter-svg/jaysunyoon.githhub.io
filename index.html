@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jaysun Yoon — Finance & Business Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #F5F0E8;
+      --ink: #1A1612;
+      --teal: #1A7A6E;
+      --teal-light: #2BA89A;
+      --gold: #C9A84C;
+      --muted: #6B6259;
+      --line: rgba(26,22,18,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 4rem;
+      background: rgba(245,240,232,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; letter-spacing: 0.04em;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      padding: 8rem 4rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-bg-lines {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(26,122,110,0.04) 80px, rgba(26,122,110,0.04) 81px);
+    }
+    .hero-text { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 40px; height: 1px; background: var(--teal);
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 300; line-height: 1.0;
+      letter-spacing: -0.02em; margin-bottom: 1.5rem;
+    }
+    h1 em { font-style: italic; color: var(--teal); }
+    .hero-sub {
+      font-size: 1rem; color: var(--muted); max-width: 420px; line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: var(--teal); color: #fff;
+      padding: 0.9rem 2rem; text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .hero-cta:hover { background: var(--teal-light); transform: translateY(-2px); }
+    .hero-cta-ghost {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      border: 1px solid var(--ink); color: var(--ink);
+      padding: 0.9rem 2rem; text-decoration: none;
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      margin-left: 1rem; transition: all 0.2s;
+    }
+    .hero-cta-ghost:hover { background: var(--ink); color: var(--cream); }
+    .hero-right {
+      position: relative; z-index: 2;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .hero-card {
+      background: var(--ink); color: var(--cream);
+      padding: 3rem; max-width: 340px; width: 100%;
+      position: relative;
+    }
+    .hero-card::before {
+      content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px;
+      border: 1px solid var(--teal); z-index: -1;
+    }
+    .hero-card-label {
+      font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 1.5rem;
+    }
+    .hero-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 400; margin-bottom: 0.5rem;
+    }
+    .hero-card-title {
+      font-size: 0.82rem; color: rgba(245,240,232,0.6); margin-bottom: 2rem;
+    }
+    .hero-card-details { list-style: none; }
+    .hero-card-details li {
+      font-size: 0.78rem; padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(245,240,232,0.1);
+      display: flex; gap: 0.75rem; align-items: center;
+    }
+    .hero-card-details li:last-child { border-bottom: none; }
+    .detail-icon { color: var(--teal); font-size: 1rem; min-width: 16px; }
+
+    /* ── SECTIONS SHARED ── */
+    section { padding: 6rem 4rem; }
+    .section-eyebrow {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .section-eyebrow::before {
+      content: ''; display: block; width: 40px; height: 1px; background: var(--teal);
+    }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 300; line-height: 1.1; margin-bottom: 3rem;
+    }
+    h2 em { font-style: italic; color: var(--teal); }
+
+    /* ── ABOUT ── */
+    #about {
+      background: var(--ink); color: var(--cream);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    #about .section-eyebrow { color: var(--teal-light); }
+    #about .section-eyebrow::before { background: var(--teal-light); }
+    #about h2 { color: var(--cream); margin-bottom: 1.5rem; }
+    .about-body { font-size: 0.95rem; line-height: 1.9; color: rgba(245,240,232,0.75); }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2rem; }
+    .stat-box {
+      border: 1px solid rgba(245,240,232,0.15); padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .stat-box:hover { border-color: var(--teal); }
+    .stat-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem; font-weight: 600; color: var(--teal-light); line-height: 1;
+    }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,240,232,0.5); margin-top: 0.4rem; }
+    .about-photo-wrap {
+      position: relative; display: flex; justify-content: center;
+    }
+    .about-photo-placeholder {
+      width: 100%; max-width: 380px; aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #2A2420 0%, #1A7A6E22 100%);
+      border: 1px solid rgba(245,240,232,0.1);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      color: rgba(245,240,232,0.3); text-align: center; gap: 1rem;
+      position: relative;
+    }
+    .about-photo-placeholder img {
+      width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;
+    }
+    .photo-overlay-text {
+      font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+      font-style: italic;
+    }
+    .photo-placeholder-icon { font-size: 3rem; opacity: 0.3; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--cream); }
+    .exp-grid { display: grid; gap: 0; }
+    .exp-item {
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 3rem; padding: 2.5rem 0;
+      border-bottom: 1px solid var(--line);
+      transition: background 0.2s;
+    }
+    .exp-item:first-child { border-top: 1px solid var(--line); }
+    .exp-item:hover { background: rgba(26,122,110,0.03); }
+    .exp-date {
+      font-size: 0.75rem; letter-spacing: 0.08em;
+      color: var(--muted); padding-top: 0.2rem;
+    }
+    .exp-content {}
+    .exp-company {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; margin-bottom: 0.2rem;
+    }
+    .exp-role {
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 1rem;
+    }
+    .exp-bullets { list-style: none; }
+    .exp-bullets li {
+      font-size: 0.88rem; color: var(--muted); line-height: 1.7;
+      padding-left: 1.2rem; position: relative; margin-bottom: 0.3rem;
+    }
+    .exp-bullets li::before {
+      content: '—'; position: absolute; left: 0; color: var(--teal); font-size: 0.75rem;
+    }
+
+    /* ── PROJECTS / EXTRACURRICULAR ── */
+    #projects { background: #EDE8DF; }
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .project-card {
+      background: var(--cream); padding: 2.5rem;
+      border: 1px solid var(--line);
+      position: relative; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .project-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--teal); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+    .project-card:hover::after { transform: scaleX(1); }
+    .project-badge {
+      display: inline-block;
+      font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      background: var(--teal); color: #fff; padding: 0.3rem 0.7rem;
+      margin-bottom: 1.2rem;
+    }
+    .project-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 600; margin-bottom: 0.75rem;
+    }
+    .project-org {
+      font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem; letter-spacing: 0.05em;
+    }
+    .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--cream); }
+    .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .skills-group-label {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 0.75rem;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
+    .skill-tag {
+      font-size: 0.78rem; letter-spacing: 0.06em;
+      border: 1px solid var(--line); padding: 0.45rem 1rem;
+      transition: all 0.2s; cursor: default;
+    }
+    .skill-tag:hover { border-color: var(--teal); color: var(--teal); }
+    .interests-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .interest-item {
+      font-size: 0.82rem; color: var(--muted);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .interest-item::before { content: '◆'; font-size: 0.4rem; color: var(--teal); }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--ink); color: var(--cream); }
+    #education .section-eyebrow { color: var(--teal-light); }
+    #education .section-eyebrow::before { background: var(--teal-light); }
+    #education h2 { color: var(--cream); }
+    .edu-card {
+      border: 1px solid rgba(245,240,232,0.15); padding: 3rem;
+      display: grid; grid-template-columns: 1fr auto; gap: 2rem;
+      max-width: 820px;
+    }
+    .edu-school {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 400; margin-bottom: 0.3rem;
+    }
+    .edu-degree {
+      font-size: 0.88rem; color: rgba(245,240,232,0.6); margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .edu-honors { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .honor-badge {
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+      background: rgba(26,122,110,0.25); color: var(--teal-light);
+      border: 1px solid rgba(26,122,110,0.3); padding: 0.3rem 0.75rem;
+    }
+    .edu-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 300; color: rgba(245,240,232,0.1);
+      line-height: 1; white-space: nowrap; align-self: start;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--cream);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    .contact-info h2 { margin-bottom: 1.5rem; }
+    .contact-sub { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; }
+    .contact-links { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .contact-links li a {
+      display: flex; align-items: center; gap: 1rem;
+      font-size: 0.88rem; color: var(--ink); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .contact-links li a:hover { color: var(--teal); }
+    .contact-links .link-label {
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--teal); min-width: 70px;
+    }
+    .contact-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; line-height: 1.2;
+      color: rgba(26,22,18,0.1);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink); color: rgba(245,240,232,0.4);
+      padding: 2rem 4rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.75rem; letter-spacing: 0.08em;
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+      #about, #contact { grid-template-columns: 1fr; gap: 3rem; padding: 4rem 1.5rem; }
+      section { padding: 4rem 1.5rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .skills-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .edu-card { grid-template-columns: 1fr; }
+      .edu-year { display: none; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">JY</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg-lines"></div>
+    <div class="hero-text fade-in">
+      <p class="hero-eyebrow">Finance &amp; Business Analytics</p>
+      <h1>Jaysun<br><em>Yoon</em></h1>
+      <p class="hero-sub">Rutgers Honors College student pursuing Finance and Business Analytics &amp; IT — passionate about financial modeling, data-driven strategy, and building meaningful solutions.</p>
+      <div>
+        <a href="#contact" class="hero-cta">Get in touch ↓</a>
+        <a href="#experience" class="hero-cta-ghost">View work</a>
+      </div>
+    </div>
+    <div class="hero-right fade-in" style="transition-delay:0.2s">
+      <div class="hero-card">
+        <p class="hero-card-label">Currently</p>
+        <p class="hero-card-name">Jaysun Yoon</p>
+        <p class="hero-card-title">BS Finance &amp; BAIT · Rutgers University</p>
+        <ul class="hero-card-details">
+          <li><span class="detail-icon">◎</span> Teaneck, New Jersey</li>
+          <li><span class="detail-icon">◎</span> Expected Graduation: May 2029</li>
+          <li><span class="detail-icon">◎</span> Honors College · Dean's Scholar</li>
+          <li><span class="detail-icon">◎</span> KPMG BITS Competition — 1st Place</li>
+          <li><span class="detail-icon">◎</span> Open to internship opportunities</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="fade-in">
+      <p class="section-eyebrow">About Me</p>
+      <h2>Analytical thinker.<br><em>Driven</em> builder.</h2>
+      <p class="about-body">
+        I'm a first-year student at Rutgers University Honors College, double-majoring in Finance and Business Analytics &amp; Information Technology. I bring experience across financial analysis, operations management, and startup strategy — and I thrive at the intersection of data and real-world business decisions.
+        <br><br>
+        Whether I'm building valuation models, pitching startup concepts, or managing complex scheduling operations, I approach every challenge with precision and curiosity.
+      </p>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-number">1K+</div>
+          <div class="stat-label">B2B transactions analyzed</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">1st</div>
+          <div class="stat-label">KPMG BITS competition</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">4×</div>
+          <div class="stat-label">DECA State Finalist</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">60+</div>
+          <div class="stat-label">Students mentored annually</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-photo-wrap fade-in" style="transition-delay:0.15s">
+      <div class="about-photo-placeholder">
+        <img src="Jaysun_Yoon.png" alt="Jaysun Yoon">
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="section-eyebrow fade-in">Professional Experience</p>
+    <h2 class="fade-in">Where I've <em>worked</em></h2>
+    <div class="exp-grid">
+
+      <div class="exp-item fade-in">
+        <div class="exp-date">Mar 2026 – Present</div>
+        <div class="exp-content">
+          <p class="exp-company">Rutgers University Institutional Planning &amp; Operations</p>
+          <p class="exp-role">Surplus Sales &amp; Sustainability Support · Utilities &amp; Renewable Energy</p>
+          <ul class="exp-bullets">
+            <li>Prepare and list surplus university assets for online auction platforms and in-person equipment sales</li>
+            <li>Coordinate with buyers to schedule pickups and facilitate removal of purchased equipment</li>
+            <li>Assist with inventory management of surplus materials using digital scanning systems</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-date">Jun 2025 – Aug 2025</div>
+        <div class="exp-content">
+          <p class="exp-company">H&amp;H Driving School</p>
+          <p class="exp-role">Administrative Assistant · Fort Lee, NJ</p>
+          <ul class="exp-bullets">
+            <li>Managed ~30 inbound calls per day handling student registration and rescheduling</li>
+            <li>Processed $5K–$10K in weekly payments with accurate transaction records</li>
+            <li>Built and maintained weekly lesson schedules for 7 instructors and 20+ students</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item fade-in">
+        <div class="exp-date">Jun 2024 – Feb 2025</div>
+        <div class="exp-content">
+          <p class="exp-company">Ebin New York</p>
+          <p class="exp-role">General Affairs Intern, Strategic Planning · Moonachie, NJ</p>
+          <ul class="exp-bullets">
+            <li>Analyzed ~1,000 B2B transactions in Excel to verify accounts receivable payments and records</li>
+            <li>Produced transaction reports and financial summaries to support internal planning</li>
+            <li>Utilized KissFlow workflow automation to manage 100+ monthly internal requests</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-eyebrow fade-in">Leadership &amp; Projects</p>
+    <h2 class="fade-in">What I've <em>built</em></h2>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <span class="project-badge">🏆 1st Place</span>
+        <p class="project-title">Pipeline — Startup Platform</p>
+        <p class="project-org">KPMG BITS Innovate Competition · Feb–Mar 2026</p>
+        <p class="project-desc">Pitched Pipeline, a platform streamlining professional networking and recruiting pipelines. Developed a full startup proposal with market analysis, business model, and revenue strategy. Built interactive wireframes and UI mockups in Figma.</p>
+      </div>
+
+      <div class="project-card fade-in" style="transition-delay:0.1s">
+        <span class="project-badge">Equity Research</span>
+        <p class="project-title">General Motors Stock Pitch</p>
+        <p class="project-org">Little Investment Bankers of Rutgers · Oct–Dec 2025</p>
+        <p class="project-desc">Conducted in-depth equity research and financial risk analysis on General Motors. Built full financial statements and valuation models including revenue build, IS, CF, and BS models. Delivered a live stock pitch using scenario-based forecasting.</p>
+      </div>
+
+      <div class="project-card fade-in" style="transition-delay:0.2s">
+        <span class="project-badge">Leadership</span>
+        <p class="project-title">DECA Vice President</p>
+        <p class="project-org">Distributive Education Clubs of America · Sep 2022–Feb 2025</p>
+        <p class="project-desc">Served as Vice President and qualified as a 4× State Finalist in finance and marketing case events. Managed budgeting for ~60 students annually and mentored peers in competitive business case preparation.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <p class="section-eyebrow fade-in">Skills &amp; Interests</p>
+    <h2 class="fade-in">My <em>toolkit</em></h2>
+    <div class="skills-layout">
+      <div class="fade-in">
+        <p class="skills-group-label">Technical Skills</p>
+        <div class="skill-tags">
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Microsoft Excel</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">KissFlow</span>
+          <span class="skill-tag">PowerPoint</span>
+          <span class="skill-tag">Financial Modeling</span>
+          <span class="skill-tag">Valuation</span>
+        </div>
+        <p class="skills-group-label">Languages</p>
+        <div class="skill-tags">
+          <span class="skill-tag">English — Native</span>
+          <span class="skill-tag">Korean — Conversational</span>
+        </div>
+        <p class="skills-group-label">Coursework</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Financial Management</span>
+          <span class="skill-tag">Statistical Methods for Business</span>
+          <span class="skill-tag">Calculus I</span>
+        </div>
+      </div>
+      <div class="fade-in" style="transition-delay:0.1s">
+        <p class="skills-group-label">Interests</p>
+        <div class="interests-grid">
+          <span class="interest-item">Tennis</span>
+          <span class="interest-item">Snowboarding</span>
+          <span class="interest-item">Personal Health</span>
+          <span class="interest-item">House Music</span>
+          <span class="interest-item">Piano</span>
+          <span class="interest-item">Esports</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-eyebrow fade-in">Education</p>
+    <h2 class="fade-in" style="color:var(--cream)">Where I <em>study</em></h2>
+    <div class="edu-card fade-in">
+      <div>
+        <p class="edu-school">Rutgers University<br>Honors College</p>
+        <p class="edu-degree">Bachelor of Science in Finance and Business Analytics &amp; Information Technology · Expected May 2029</p>
+        <div class="edu-honors">
+          <span class="honor-badge">Honors College</span>
+          <span class="honor-badge">Dean's Promise Scholarship</span>
+          <span class="honor-badge">Dean's Scholarship</span>
+        </div>
+      </div>
+      <div class="edu-year">2029</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-info fade-in">
+      <p class="section-eyebrow">Contact</p>
+      <h2>Let's <em>connect</em></h2>
+      <p class="contact-sub">I'm actively looking for internship and research opportunities in finance and business analytics. Feel free to reach out — I'd love to connect.</p>
+      <ul class="contact-links">
+        <li>
+          <a href="mailto:jaysunyoon32@gmail.com">
+            <span class="link-label">Email</span>
+            jaysunyoon32@gmail.com
+          </a>
+        </li>
+        <li>
+          <a href="tel:+12016788701">
+            <span class="link-label">Phone</span>
+            201-678-8701
+          </a>
+        </li>
+        <li>
+          <a href="https://www.linkedin.com/in/jaysun-yoon/" target="_blank">
+            <span class="link-label">LinkedIn</span>
+            linkedin.com/in/jaysun-yoon
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <span class="link-label">Location</span>
+            Teaneck, New Jersey
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="fade-in" style="transition-delay:0.15s">
+      <p class="contact-big">Finance.<br>Analytics.<br>Strategy.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2026 Jaysun Yoon</span>
+    <span>Rutgers University Honors College · Class of 2029</span>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Trigger hero immediately
+    setTimeout(() => {
+      document.querySelectorAll('#hero .fade-in').forEach(el => el.classList.add('visible'));
+    }, 100);
+  </script>
+</body>
+</html>
